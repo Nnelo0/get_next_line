@@ -6,13 +6,13 @@
 /*   By: ebroudic <ebroudic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 08:34:12 by ebroudic          #+#    #+#             */
-/*   Updated: 2024/10/28 16:29:05 by ebroudic         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:21:21 by ebroudic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static size_t	ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
 	int	i;
 
@@ -35,24 +35,6 @@ char	*ft_strchr(const char *s, int c)
 	if ((char)c == '\0')
 		return ((char *)&s[i]);
 	return (NULL);
-}
-
-char	*ft_strdup(const char *src)
-{
-	char	*dest;
-	int		i;
-
-	i = 0;
-	dest = malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (dest == NULL)
-		return (NULL);
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
 }
 static char	*ft_strcpy(char *dest, char *src)
 {
@@ -79,4 +61,3 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_strcpy(dsa + ft_strlen(s1), (char *)s2);
 	return (dsa);
 }
-
