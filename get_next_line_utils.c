@@ -6,7 +6,7 @@
 /*   By: ebroudic <ebroudic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 08:34:12 by ebroudic          #+#    #+#             */
-/*   Updated: 2024/10/30 11:21:21 by ebroudic         ###   ########.fr       */
+/*   Updated: 2024/10/31 17:32:36 by ebroudic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,17 @@ static char	*ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*dsa;
-
-	dsa = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!s1)
+		s1 = "";
+	if (!s2)
+		s2 = "";
+	dsa = malloc(sizeof(char) * ((ft_strlen(s1) + ft_strlen(s2)) + 1));
 	if (dsa == NULL)
 		return (NULL);
-	ft_strcpy(dsa, (char *)s1);
-	ft_strcpy(dsa + ft_strlen(s1), (char *)s2);
+	ft_strcpy(dsa, s1);
+	ft_strcpy(dsa + ft_strlen(s1), s2);
 	return (dsa);
 }
