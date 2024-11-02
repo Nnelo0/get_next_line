@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ebroudic <ebroudic@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nnelo <nnelo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 08:34:12 by ebroudic          #+#    #+#             */
-/*   Updated: 2024/10/31 17:32:36 by ebroudic         ###   ########.fr       */
+/*   Updated: 2024/11/02 14:32:50 by nnelo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ size_t	ft_strlen(const char *s)
 		i++;
 	return (i);
 }
+
 char	*ft_strchr(const char *s, int c)
 {
 	int	i;
@@ -36,6 +37,7 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)&s[i]);
 	return (NULL);
 }
+
 static char	*ft_strcpy(char *dest, char *src)
 {
 	int	i;
@@ -53,6 +55,7 @@ static char	*ft_strcpy(char *dest, char *src)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*dsa;
+
 	if (!s1)
 		s1 = "";
 	if (!s2)
