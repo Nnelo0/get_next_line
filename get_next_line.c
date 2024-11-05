@@ -72,6 +72,8 @@ static char	*get_line(int fd, char *stash)
 
 	bytes = 1;
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buf)
+		return (NULL);
 	while (bytes > 0)
 	{
 		bytes = read(fd, buf, BUFFER_SIZE);
