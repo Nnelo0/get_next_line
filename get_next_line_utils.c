@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nnelo <nnelo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ebroudic <ebroudic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 08:34:12 by ebroudic          #+#    #+#             */
-/*   Updated: 2024/11/02 14:32:50 by nnelo            ###   ########.fr       */
+/*   Updated: 2024/11/04 10:56:29 by ebroudic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-static char	*ft_strcpy(char *dest, char *src)
+char	*ft_strcpy(char *dest, char *src)
 {
 	int	i;
 
+	if (!src || !dest)
+		return (NULL);
 	i = 0;
 	while (src[i] != '\0')
 	{

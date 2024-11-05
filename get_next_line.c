@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nnelo <nnelo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ebroudic <ebroudic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 08:34:16 by ebroudic          #+#    #+#             */
-/*   Updated: 2024/11/02 14:46:26 by nnelo            ###   ########.fr       */
+/*   Updated: 2024/11/05 08:52:55 by ebroudic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,32 +29,35 @@ static char	*next_line(char *stash)
 	new_line = malloc(sizeof(char) * ((i - len) + 1));
 	if (!new_line)
 		return (NULL);
-	while (i >= len)
+	while (stash[len] != '\0')
 	{
-		new_line[j] = stash[len];
-		len++;
-		j++;
+		new_line[j++] = stash[len++];
 	}
-	new_line[i] = '\0';
+	new_line[j] = '\0';
+	free(stash);
 	return (new_line);
 }
 
-static char	*copy_line(char *tmp)
+static char	*copy_line(char *stash)
 {
 	char	*line;
 	int		len;
 	int		i;
 
 	len = 0;
-	i = 0;
-	while (tmp[len] != '\n' && tmp[len] != '\0')
+	while (stash[len] != '\n' && stash[len] != '\0')
 		len++;
+	if (stash[len] == '\n')
+		len++;
+	if (len == 0)
+		return (NULL);
 	line = malloc(sizeof(char) * (len + 1));
 	if (!line)
 		return (NULL);
-	while (i <= len)
+	i = 0;
+	while (i < len)
 	{
-		line[i] = tmp[i];
+		line[i] = stash[i];
 		i++;
 	}
 	line[i] = '\0';
@@ -64,17 +67,16 @@ static char	*copy_line(char *tmp)
 static char	*get_line(int fd, char *stash)
 {
 	ssize_t	bytes;
-	char	buf[BUFFER_SIZE + 1];
+	char	*buf;
 	char	*tmp;
 
 	bytes = 1;
-	while (bytes != 0)
+	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	while (bytes > 0)
 	{
 		bytes = read(fd, buf, BUFFER_SIZE);
-		if (bytes == -1)
-			return (NULL);
-		if (bytes == 0)
-			break ;
+		if (bytes < 0)
+			return (free(buf), free(stash), NULL);
 		buf[bytes] = '\0';
 		tmp = stash;
 		stash = ft_strjoin(tmp, buf);
@@ -84,6 +86,7 @@ static char	*get_line(int fd, char *stash)
 		if (ft_strchr(stash, '\n'))
 			break ;
 	}
+	free(buf);
 	return (stash);
 }
 
@@ -95,12 +98,25 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	stash = get_line(fd, stash);
+	if (!stash)
+		return (NULL);
 	line = copy_line(stash);
+	if (!line)
+	{
+		free(stash);
+		stash = NULL;
+		return (NULL);
+	}
 	stash = next_line(stash);
+	if (!stash[0])
+	{
+		free(stash);
+		stash = NULL;
+	}
 	return (line);
 }
 
-int main()
+/* int main()
 {
 	int fd;
 	int i = 0;
@@ -108,7 +124,7 @@ int main()
 	fd = open("test.txt", O_RDONLY);
 	if (fd == -1)
 		return 1;
-	while (i < 17)
+	while (i < 42)
 	{
 		next_line = get_next_line(fd);
 		printf("%s", next_line);
@@ -116,4 +132,4 @@ int main()
 		i++;
 	}
 	return(0);
-}
+} */
